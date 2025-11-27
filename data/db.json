@@ -34,13 +34,6 @@
       "name": "Michael",
       "email": "michael@test.com",
       "gender": "male"
-    },
-    {
-      "id": "7be2",
-      "age": "23",
-      "name": "Steve",
-      "email": "steve@test.com",
-      "gender": "male"
     }
   ]
 }
