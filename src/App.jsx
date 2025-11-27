@@ -22,6 +22,37 @@ function App() {
     setPersonToEdit(person);
   }
 
+  function mutatePerson(person) {
+    if (person.id != "") {
+      // PUT
+      updatePerson(person);
+    } else {
+      createPerson(person);
+      // POST
+    }
+  }
+
+  function updatePerson(person) {
+    fetchData(
+      `${APIURL}/${person.id}`,
+      //Ligesom at loope igennem
+      (person) => {
+        setPersons(persons.map((p) => (p.id == person.id ? { ...person } : p)));
+      },
+      "PUT",
+      person
+    );
+  }
+
+  function createPerson(person) {
+    fetchData(
+      APIURL,
+      (person) => setPersons([...persons, person]),
+      "POST",
+      person
+    );
+  }
+
   function getPersons(callback) {
     fetchData(APIURL, callback);
   }
@@ -40,7 +71,11 @@ function App() {
   return (
     <div className="container">
       <h1>Person DB</h1>
-      <PersonForm blankPerson={blankPerson} personToEdit={personToEdit} />
+      <PersonForm
+        blankPerson={blankPerson}
+        personToEdit={personToEdit}
+        mutatePerson={mutatePerson}
+      />
       <PersonList
         persons={persons}
         deletePersonById={deletePersonById}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function PersonForm({ blankPerson, personToEdit }) {
+function PersonForm({ blankPerson, personToEdit, mutatePerson }) {
   const [person, setPerson] = useState({ ...personToEdit });
 
   useEffect(() => {
@@ -9,26 +9,26 @@ function PersonForm({ blankPerson, personToEdit }) {
 
   function handleChange(event) {
     const value = event.target.value;
-    const name = event.target.name;
+    const name = event.target.id;
     setPerson({ ...person, [name]: value });
   }
 
   function handleSubmit(event) {
     event.preventDefault(); //for at stoppe event bubbling, da enhver button har submit-funktion som default!
-    alert("submit", person);
+    console.log("submit", person);
+    mutatePerson(person);
     //callback funktion fra App.jsx, som enten indsætter eller opdaterer en person (alt efter om id er tomt eller ej)
   }
 
   return (
     <div>
       <h1>Add/Edit Person</h1>
-      {JSON.stringify(person)} //Debugging purposes
       <form onSubmit={handleSubmit}>
         <label htmlFor="id">Id</label>
         <input
           name="id"
           id="id"
-          type="number"
+          type="text"
           readOnly
           placeholder="id"
           value={person.id}
@@ -74,10 +74,11 @@ function PersonForm({ blankPerson, personToEdit }) {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        <button type="submit">Submit</button>
+        <button>Update</button>
+        <button type="button" onClick={() => setPerson(blankPerson)}>
+          Reset
+        </button>
       </form>
-      <button>Update</button>
-      <button onClick={() => setPerson(blankPerson)}>Reset</button>
     </div>
   );
 }
