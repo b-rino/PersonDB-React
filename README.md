@@ -13,6 +13,7 @@ This is a school assignment with the purpose making of CRUD operations on a loca
 
 ## How to run
 
+- Make sure you have Node.js on your machine
 - Clone this project
 - Navigate to the root folder of this project
 - Run command `npm install`
